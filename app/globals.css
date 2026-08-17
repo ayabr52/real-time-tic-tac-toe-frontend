@@ -1,10 +1,12 @@
 @import "tailwindcss";
 
+/* ألوان النظام */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #000000;
+  --foreground: #ff4da6;
 }
 
+/* ثيم Tailwind */
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -12,15 +14,114 @@
   --font-mono: var(--font-geist-mono);
 }
 
+/* Dark Mode */
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #000000;
+    --foreground: #ff4da6;
   }
 }
 
+/* الخط الأساسي */
 body {
-  background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+  background: #000;
 }
+
+/* خلفية Blackpink Gradient */
+@keyframes bpGradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.bp-bg {
+  background: linear-gradient(135deg, #000000, #1a1a1a, #ff4da6, #000000);
+  background-size: 300% 300%;
+  animation: bpGradient 10s ease infinite;
+}
+
+/* لمعة Blackpink */
+.bp-glow {
+  box-shadow:
+    0 0 25px rgba(255, 77, 166, 0.7),
+    0 0 50px rgba(255, 77, 166, 0.4);
+}
+
+/* لمعة خفيفة للمربعات */
+.bp-square {
+  transition: all 0.3s ease;
+}
+
+.bp-square:hover {
+  box-shadow:
+    0 0 20px rgba(255, 77, 166, 0.8),
+    0 0 40px rgba(255, 77, 166, 0.5);
+  transform: scale(1.05);
+}
+@keyframes bpGradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.bp-bg {
+  background: linear-gradient(135deg, #000000, #1a1a1a, #ff4da6, #000000);
+  background-size: 300% 300%;
+  animation: bpGradient 10s ease infinite;
+}
+
+
+
+.confetti {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 50;
+}
+
+.confetti-piece {
+  position: absolute;
+  width: 10px;
+  height: 20px;
+  background: #ff4da6;
+  opacity: 0.8;
+  animation: fall 2s linear forwards;
+}
+
+@keyframes fall {
+  0% {
+    transform: translateY(-100vh) rotate(0deg);
+  }
+  100% {
+    transform: translateY(100vh) rotate(360deg);
+  }
+}
+
+
+
+
+.winner-text {
+  font-size: 0.5rem;
+  transform: scale(0.3);
+  opacity: 0;
+  animation: growText 0.6s ease forwards;
+}
+
+@keyframes growText {
+  0% {
+    transform: scale(5);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(12);
+    opacity: 2;
+  }
+}
+
+

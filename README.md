@@ -6,28 +6,38 @@ First, run the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+⭐ Real‑time Tic Tac Toe – Frontend (Next.js)
+A modern and interactive Tic Tac Toe frontend built with Next.js, designed to support both single‑player gameplay and real‑time multiplayer mode through WebSocket integration.
+The single‑player logic is fully implemented on the client side, while multiplayer functionality is prepared to connect with a Laravel Reverb backend for synchronized moves between players.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+✨ Key Features
+Single Player Mode — Complete local game logic allowing users to play instantly without backend communication.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Multiplayer Ready — Frontend prepared to join rooms, send moves, and receive real‑time updates via WebSockets.
 
-## Learn More
+Clean Game State Management — React hooks controlling board state, turns, win detection, and resets.
 
-To learn more about Next.js, take a look at the following resources:
+Modern UI — Smooth interactions, responsive layout, and a clean board design.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Room Integration (In Progress) — Client-side handlers for joining rooms, syncing moves, and restarting games once backend events are connected.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Next.js Architecture — Fast rendering, optimized routing, and scalable structure for future enhancements.
+
+🛠️ Tech Stack
+Next.js
+
+React Hooks
+
+WebSocket Client (for Laravel Reverb)
+
+TailwindCSS / CSS Modules
+
+Local Game Logic (Single Player)
+
+🚧 Development Status
+Single‑player mode is fully functional.
+Multiplayer mode is currently under development and will be completed once backend room synchronization is finalized.
 
 ## Deploy on Vercel
 
