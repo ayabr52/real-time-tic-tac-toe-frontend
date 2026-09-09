@@ -4,6 +4,9 @@ import { useState, useEffect } from "react";
 import Square from "@/app/components/Square";
 import echo from "@/lib/echo";
 
+
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'https://real-time-tic-tac-toe-backend-w1o4.onrender.com/api';
+
 /**
  * Confetti animation when a player wins
  */
@@ -92,7 +95,7 @@ export default function Board({
   function handleClick(i: number) {
     if (squares[i] || winner) return;
 
-    fetch(`http://127.0.0.1:8000/api/rooms/${roomId}/move`, {
+    fetch(`${API_BASE_URL}/rooms/${roomId}/move`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({

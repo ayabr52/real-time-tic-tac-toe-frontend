@@ -1,48 +1,73 @@
-# 🎮 Real-Time Tic-Tac-Toe Client (Next.js 14)
+# Real-Time Tic-Tac-Toe Backend (Laravel Reverb)
 
-A modern, responsive, multiplayer **Tic-Tac-Toe** web frontend built with **Next.js App Router**, **Tailwind CSS** (featuring a Glassmorphism UI), and **Laravel Echo / Pusher JS** for real-time WebSocket synchronization.
+This is the backend for the Real-Time Tic-Tac-Toe game. It is built with Laravel and provides an API and a WebSocket server using Laravel Reverb to synchronize game state across multiple players in real-time.
 
----
+## Tech Stack
 
-## ⚡ Features
+*   **Framework:** Laravel 11
+*   **Real-time Server:** Laravel Reverb (WebSockets)
+*   **Database:** SQLite
+*   **Infrastructure:** Render (via Docker)
 
-- **Real-Time Synchronization:** Instant turn updates and board syncing via WebSockets without page refreshes.
-- **Optimistic UI:** Instant local state updates for zero click latency with automatic error rollback.
-- **Glassmorphism UI:** Aesthetic frosted-glass dark theme with glowing gradients and fluid transitions.
-- **Victory Visuals:** Dynamic DOM confetti animations triggered upon game completion.
-- **Room Lifecycle Management:** In-game capabilities for instant match resetting or complete room destruction.
+## Deployment Details
 
----
+*   **Backend Base URL:** `https://real-time-tic-tac-toe-backend-w1o4.onrender.com`
+*   **API Base URL:** `https://real-time-tic-tac-toe-backend-w1o4.onrender.com/api`
+*   **WebSocket Host (Reverb):** `real-time-tic-tac-toe-backend-w1o4.onrender.com`
 
-## 🛠️ Tech Stack
+> **Note:** The backend is deployed on Render's free tier. This means the instance spins down when inactive. The first request after a period of inactivity might experience a delay of 50 seconds or more.
 
-- **Framework:** Next.js 14+ (App Router)
-- **Language:** TypeScript
-- **Styling:** Tailwind CSS
-- **Real-Time Client:** Laravel Echo & Pusher JS (`pusher-js`)
+## API Endpoints
 
----
+The following API endpoints are available (prefixed with `/api`):
 
-## ⚙️ Local Development Setup
+| Method | Endpoint | Description |
+| :--- | :--- | :--- |
+| `POST` | `/rooms` | Create a new game room. |
+| `POST` | `/rooms/join` | Join an existing game room (returns current state). |
+| `GET` | `/rooms/{name}` | Get the current state of a room. |
+| `POST` | `/rooms/{name}/move` | Submit a player move. |
+| `POST` | `/rooms/{name}/reset` | Reset a game board in a room. |
+| `DELETE` | `/rooms/{name}` | Delete a room. |
 
-### 1. Install Dependencies
-```bash
-npm install
+## WebSocket (Reverb) Integration
 
-2. Environment Configuration
-Create a .env.local file in the project root:
-NEXT_PUBLIC_REVERB_APP_KEY=local
-NEXT_PUBLIC_REVERB_HOST=127.0.0.1
-NEXT_PUBLIC_REVERB_PORT=8080
-NEXT_PUBLIC_REVERB_SCHEME=http
-NEXT_PUBLIC_API_BASE_URL=http://127.0.0.1:8000/api
+The backend broadcast events to clients connected to specific room channels. Clients should subscribe to the following private channel:
 
-3. Run Development Server
-```bash
-npm run dev
+`private-room.{roomName}`
 
-Open http://localhost:3000 in your browser to view the application.
+It broadcasts the following event:
 
----
+`App\Events\MovePlayed`
+
+## Local Setup
+
+1.  Clone the repository.
+2.  Install dependencies: `composer install`
+3.  Copy the `.env.example` to `.env`.
+4.  Generate an app key: `php artisan key:generate`
+5.  Set up the SQLite database: `touch database/database.sqlite`
+6.  Run migrations: `php artisan migrate --seed`
+7.  Run the Laravel server: `php artisan serve`
+8.  Run the Reverb server: `php artisan reverb:start`
+
+## Environment Variables (.env)
+
+Make sure the following environment variables are set correctly:
+
+```env
+APP_ENV=local
+APP_DEBUG=true
+APP_URL=http://localhost:8000
+FRONTEND_URL=http://localhost:3000
+
+# Reverb (Local)
+REVERB_SERVER_HOST=0.0.0.0
+REVERB_SERVER_PORT=8080
+REVERB_APP_ID=myreverb
+REVERB_APP_KEY=mykey
+REVERB_APP_SECRET=mysecret
+REVERB_SCHEME=http
+
 
 Created with ❤️ by IT. Aya

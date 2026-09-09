@@ -3,6 +3,8 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'https://real-time-tic-tac-toe-backend-w1o4.onrender.com/api';
+
 export default function CreateRoom() {
   const [roomId, setRoomId] = useState("");
   const [loading, setLoading] = useState(false);
@@ -15,7 +17,7 @@ export default function CreateRoom() {
     setLoading(true);
 
     try {
-      const res = await fetch("http://127.0.0.1:8000/api/rooms", {
+      const res = await fetch(`${API_BASE_URL}/rooms`, {
         method: "POST",
         headers: { 
           "Content-Type": "application/json",

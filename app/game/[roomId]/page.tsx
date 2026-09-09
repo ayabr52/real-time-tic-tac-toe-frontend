@@ -13,6 +13,9 @@ import { useParams, useRouter } from "next/navigation";
 import { useEcho } from "@/app/providers/EchoProvider";
 import Square from "@/app/components/Square";
 
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'https://real-time-tic-tac-toe-backend-w1o4.onrender.com/api';
+
+
 /**
  * Triggers a 2-second visual confetti celebration on the DOM when a player wins.
  *
@@ -94,7 +97,7 @@ export default function GamePage() {
 
     const fetchRoomState = async () => {
       try {
-        const res = await fetch(`http://127.0.0.1:8000/api/rooms/${roomId}`, {
+        const res = await fetch(`${API_BASE_URL}/rooms/${roomId}`, {
           headers: { Accept: "application/json" },
         });
         const data = await res.json();
@@ -161,7 +164,7 @@ export default function GamePage() {
     setSquares(nextSquares);
 
     try {
-      const res = await fetch(`http://127.0.0.1:8000/api/rooms/${roomId}/move`, {
+      const res = await fetch(`${API_BASE_URL}/rooms/${roomId}/move`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -195,7 +198,7 @@ export default function GamePage() {
    */
   const handleReset = async () => {
     try {
-      const res = await fetch(`http://127.0.0.1:8000/api/rooms/${roomId}/reset`, {
+      const res = await fetch(`${API_BASE_URL}/rooms/${roomId}/reset`, {
         method: "POST",
         headers: { Accept: "application/json" },
       });
@@ -217,7 +220,7 @@ export default function GamePage() {
    */
   const handleLeaveAndDestroy = async () => {
     try {
-      await fetch(`http://127.0.0.1:8000/api/rooms/${roomId}`, {
+      await fetch(`${API_BASE_URL}/rooms/${roomId}`, {
         method: "DELETE",
         headers: { Accept: "application/json" },
       });
