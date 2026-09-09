@@ -10,21 +10,33 @@
   },
   "dependencies": {
     "laravel-echo": "^1.19.0",
+<<<<<<< HEAD
     "next": "16.3.3",
     "pusher-js": "^8.6.0",
     "react": "19.2.8",
     "react-dom": "19.2.8",
     "socket.io-client": "^4.8.3",
     "ws": "^8.21.3"
+=======
+    "next": "16.2.9",
+    "pusher-js": "^8.5.0",
+    "react": "19.2.4",
+    "react-dom": "19.2.4"
+>>>>>>> 96e82ab49773b88e6a3cf4cd99f099d25afca2e2
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+<<<<<<< HEAD
     "babel-plugin-react-compiler": "1.0.0",
     "eslint": "^9",
     "eslint-config-next": "16.3.3",
+=======
+    "eslint": "^9",
+    "eslint-config-next": "16.2.9",
+>>>>>>> 96e82ab49773b88e6a3cf4cd99f099d25afca2e2
     "tailwindcss": "^4",
     "typescript": "^5"
   }

@@ -1,11 +1,11 @@
-"use client";
+interface SquareProps {
+  value: string | null;
+  onClick: () => void;
+}
 
-export default function Square({ value, onClick }) {
+export default function Square({ value, onClick }: SquareProps) {
   return (
-    <button
-      onClick={onClick}
-      className="w-24 h-24 border border-pink-500 text-4xl font-bold flex items-center justify-center hover:bg-pink-500/20 transition"
-    >
+    <button className="square" onClick={onClick}>
       {value}
     </button>
   );

@@ -1,5 +1,6 @@
 "use client";
 
+<<<<<<< HEAD
 /**
  * @file GamePage Component
  * @module app/game/[roomId]/page
@@ -272,3 +273,13 @@ export default function GamePage() {
     </div>
   );
 }
+=======
+import { useParams } from "next/navigation";
+import Board from "@/components/Board";
+
+export default function GamePage() {
+  const { roomId } = useParams();
+
+  return <Board roomId={roomId} />;
+}
+>>>>>>> 96e82ab49773b88e6a3cf4cd99f099d25afca2e2

@@ -1,12 +1,13 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import Square from "@/app/components/Square";
-import echo from "@/lib/echo";
+import { useState } from "react";
+import { useEffect } from "react";
+import Square from "@/components/Square";
+import { echo } from "@/lib/echo";
 
-/**
- * Confetti animation when a player wins
- */
+import Echo from "laravel-echo";
+import Pusher from "pusher-js";
+// Confetti On Win
 function launchConfetti() {
   const container = document.createElement("div");
   container.className = "confetti";
@@ -23,34 +24,17 @@ function launchConfetti() {
   }
 
   document.body.appendChild(container);
+
   setTimeout(() => container.remove(), 2000);
 }
 
-interface BoardProps {
-  roomId: string;
-  initialSquares: (string | null)[];
-  nextSymbol: string;
-  moveData?: any;
-}
-export default function Board({
-  roomId,
-  initialSquares,
-  nextSymbol,
-  moveData,
-}: BoardProps) {
-  const [squares, setSquares] = useState(initialSquares);
-  const [xIsNext, setXIsNext] = useState(nextSymbol === "X");
+export default function Board({ roomId }) {
+  const [squares, setSquares] = useState<(string | null)[]>(
+    Array(9).fill(null),
+  );
+  const [xIsNext, setXIsNext] = useState(true);
 
-  // ⭐ أهم شي: Sync بين props والـ state
-  useEffect(() => {
-    setSquares(initialSquares);
-    setXIsNext(nextSymbol === "X");
-  }, [initialSquares, nextSymbol]);
-
-  /**
-   * Calculate winner
-   */
-  function calculateWinner(sq) {
+  function calculateWinner(squares: (string | null)[]) {
     const lines = [
       [0, 1, 2],
       [3, 4, 5],
@@ -63,49 +47,73 @@ export default function Board({
     ];
 
     for (let [a, b, c] of lines) {
-      if (sq[a] && sq[a] === sq[b] && sq[a] === sq[c]) {
-        return sq[a];
+      if (
+        squares[a] &&
+        squares[a] === squares[b] &&
+        squares[a] === squares[c]
+      ) {
+        return squares[a]; // X أو O
       }
     }
     return null;
   }
 
   const winner = calculateWinner(squares);
-
   useEffect(() => {
-    if (winner) launchConfetti();
+    if (winner) {
+      launchConfetti();
+    }
   }, [winner]);
 
-  useEffect(() => {
-    if (!moveData) return;
-
-    setSquares((prev) => {
-      const next = [...prev];
-      next[moveData.cell] = moveData.symbol;
-      return next;
-    });
-
-    setXIsNext(moveData.next_symbol === "X");
-  }, [moveData]);
-
-  /**
-   * Send move to backend
-   */
-  function handleClick(i) {
+  function handleClick(i: number) {
     if (squares[i] || winner) return;
 
-    fetch(`http://127.0.0.1:8000/api/rooms/${roomId}/move`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        cell: i,
-        symbol: xIsNext ? "X" : "O",
-      }),
-    });
+    const next = squares.slice();
+    next[i] = xIsNext ? "X" : "O";
+    setSquares(next);
+    setXIsNext(!xIsNext);
+
+    if (roomId) {
+      fetch("http://127.0.0.1:8000/api/move", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          room_id: roomId,
+          index: i,
+          player: xIsNext ? "X" : "O",
+        }),
+      });
+    }
   }
+
+  {
+    /** Find If There is a Channel */
+  }
+  useEffect(() => {
+    if (!roomId) return;
+
+    console.log("listening on room:", roomId);
+
+    const channel = echo.channel(`room.${roomId}`);
+
+    channel.listen("MovePlayed", (data) => {
+      console.log("EVENT RECEIVED:", data);
+
+      setSquares((prev) => {
+        const next = [...prev];
+        next[data.index] = data.player;
+        return next;
+      });
+    });
+
+    return () => {
+      echo.leave(`room.${roomId}`);
+    };
+  }, [roomId]);
 
   return (
     <div className="relative min-h-screen w-full bp-bg flex items-center justify-center overflow-hidden">
+      {/* اللعبة */}
       <div className="relative z-10 flex flex-col items-center bp-glow p-6 rounded-xl bg-black/40 backdrop-blur-md">
         <div className="text-pink-400 text-3xl mb-4 font-bold tracking-wide">
           {winner ? (
@@ -130,7 +138,15 @@ export default function Board({
             setSquares(Array(9).fill(null));
             setXIsNext(true);
           }}
-          className="mt-6 text-pink-400 text-4xl font-bold hover:text-pink-500 transition active:scale-90"
+          className="
+    mt-6 
+    text-pink-400 
+    text-4xl 
+    font-bold 
+    hover:text-pink-500 
+    transition 
+    active:scale-90
+  "
         >
           ↻
         </button>

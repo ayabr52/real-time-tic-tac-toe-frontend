@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 
 export default function CreateRoom() {
   const [roomId, setRoomId] = useState("");
+<<<<<<< HEAD
   const [loading, setLoading] = useState(false);
 
   const router = useRouter();
@@ -49,6 +50,15 @@ export default function CreateRoom() {
   return (
     <div className="relative min-h-screen w-full bp-bg flex items-center justify-center overflow-hidden">
       <div className="relative z-10 flex flex-col items-center bp-glow p-8 rounded-xl bg-black/40 backdrop-blur-md w-[350px]">
+=======
+  const router = useRouter();
+
+  return (
+    <div className="relative min-h-screen w-full bp-bg flex items-center justify-center overflow-hidden">
+
+      <div className="relative z-10 flex flex-col items-center bp-glow p-8 rounded-xl bg-black/40 backdrop-blur-md w-[350px]">
+
+>>>>>>> 96e82ab49773b88e6a3cf4cd99f099d25afca2e2
         <h1 className="text-pink-400 text-3xl font-bold mb-6 tracking-wide">
           إنشاء غرفة
         </h1>
@@ -61,6 +71,7 @@ export default function CreateRoom() {
         />
 
         <button
+<<<<<<< HEAD
           disabled={loading}
           className="mt-5 w-full p-3 bg-pink-500 text-black font-bold rounded-lg hover:bg-pink-400 transition active:scale-95 disabled:opacity-50"
           onClick={handleCreate}
@@ -71,3 +82,16 @@ export default function CreateRoom() {
     </div>
   );
 }
+=======
+          className="mt-5 w-full p-3 bg-pink-500 text-black font-bold rounded-lg hover:bg-pink-400 transition active:scale-95"
+          onClick={() => router.push(`/game/${roomId}`)}
+        >
+          دخول الغرفة
+        </button>
+
+      </div>
+
+    </div>
+  );
+}
+>>>>>>> 96e82ab49773b88e6a3cf4cd99f099d25afca2e2

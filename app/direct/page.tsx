@@ -1,4 +1,5 @@
 "use client";
+<<<<<<< HEAD
 
 import { useState, useEffect } from "react";
 import Square from "@/app/components/Square";
@@ -106,4 +107,10 @@ export default function DirectGame() {
       </div>
     </div>
   );
+=======
+import Board from "@/components/Board";
+
+export default function DirectGame() {
+  return <Board />;
+>>>>>>> 96e82ab49773b88e6a3cf4cd99f099d25afca2e2
 }

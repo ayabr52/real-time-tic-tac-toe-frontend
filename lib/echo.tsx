@@ -1,19 +1,23 @@
-import Echo from "laravel-echo";
+import Echo from 'laravel-echo';
+import Pusher from 'pusher-js';
 
-let echo: Echo | null = null;
-
-if (typeof window !== "undefined") {
-  echo = new Echo({
-    broadcaster: "reverb",
-    key: process.env.NEXT_PUBLIC_REVERB_APP_KEY,
-    wsHost: process.env.NEXT_PUBLIC_REVERB_HOST ?? "localhost",
-    wsPort: Number(process.env.NEXT_PUBLIC_REVERB_PORT) ?? 8080,
-    forceTLS: false,
-    encrypted: false,
-    disableStats: true,
-  });
-
-  console.log("Echo (Reverb):", echo);
+declare global {
+  interface Window {
+    Pusher: typeof Pusher;
+    Echo: Echo<any>;
+  }
 }
 
-export default echo;
+window.Pusher = Pusher;
+
+const echoInstance = new Echo<any>({
+  broadcaster: 'reverb',
+  key: process.env.NEXT_PUBLIC_REVERB_APP_KEY,
+  wsHost: process.env.NEXT_PUBLIC_REVERB_HOST,
+  wsPort: Number(process.env.NEXT_PUBLIC_REVERB_PORT) || 8080,
+  wssPort: Number(process.env.NEXT_PUBLIC_REVERB_PORT) || 443,
+  forceTLS: process.env.NEXT_PUBLIC_REVERB_SCHEME === 'https',
+  enabledTransports: ['ws', 'wss'],
+});
+
+export default echoInstance;
