@@ -8,6 +8,8 @@ import echo from "@/lib/echo";
  * Confetti animation when a player wins
  */
 function launchConfetti() {
+  if (typeof document === "undefined") return;
+
   const container = document.createElement("div");
   container.className = "confetti";
 
@@ -32,25 +34,23 @@ interface BoardProps {
   nextSymbol: string;
   moveData?: any;
 }
+
 export default function Board({
   roomId,
   initialSquares,
   nextSymbol,
   moveData,
 }: BoardProps) {
-  const [squares, setSquares] = useState(initialSquares);
-  const [xIsNext, setXIsNext] = useState(nextSymbol === "X");
+  const [squares, setSquares] = useState<(string | null)[]>(initialSquares);
+  const [xIsNext, setXIsNext] = useState<boolean>(nextSymbol === "X");
 
-  // ⭐ 
   useEffect(() => {
     setSquares(initialSquares);
     setXIsNext(nextSymbol === "X");
   }, [initialSquares, nextSymbol]);
 
-  /**
-   * Calculate winner
-   */
-  function calculateWinner(sq) {
+
+  function calculateWinner(sq: (string | null)[]) {
     const lines = [
       [0, 1, 2],
       [3, 4, 5],
@@ -88,10 +88,8 @@ export default function Board({
     setXIsNext(moveData.next_symbol === "X");
   }, [moveData]);
 
-  /**
-   * Send move to backend
-   */
-  function handleClick(i) {
+ 
+  function handleClick(i: number) {
     if (squares[i] || winner) return;
 
     fetch(`http://127.0.0.1:8000/api/rooms/${roomId}/move`, {
