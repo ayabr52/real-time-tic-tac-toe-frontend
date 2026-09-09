@@ -41,7 +41,7 @@ export default function Board({
   const [squares, setSquares] = useState(initialSquares);
   const [xIsNext, setXIsNext] = useState(nextSymbol === "X");
 
-  // ⭐ أهم شي: Sync بين props والـ state
+  // ⭐ 
   useEffect(() => {
     setSquares(initialSquares);
     setXIsNext(nextSymbol === "X");
@@ -130,7 +130,7 @@ export default function Board({
             setSquares(Array(9).fill(null));
             setXIsNext(true);
           }}
-          className="mt-6 text-pink-400 text-4xl font-bold hover:text-pink-500 transition active:scale-90"
+          className="mt-6 text-pink-400 text-3xl font-bold hover:text-pink-500 transition active:scale-90"
         >
           ↻
         </button>

@@ -1,20 +1,11 @@
 @import "tailwindcss";
 
-<<<<<<< HEAD
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-=======
 /* ألوان النظام */
 :root {
   --background: #000000;
   --foreground: #ff4da6;
 }
 
-/* ثيم Tailwind */
->>>>>>> 96e82ab49773b88e6a3cf4cd99f099d25afca2e2
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -22,22 +13,6 @@
   --font-mono: var(--font-geist-mono);
 }
 
-<<<<<<< HEAD
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
-}
-/* Blackpink Gradient Background */
-=======
-/* Dark Mode */
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #000000;
@@ -45,15 +20,15 @@ body {
   }
 }
 
-/* الخط الأساسي */
+/* الخط والخلفية الأساسية */
 body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
-  background: #000;
+  background: #000000;
+  min-height: 100vh;
 }
 
-/* خلفية Blackpink Gradient */
->>>>>>> 96e82ab49773b88e6a3cf4cd99f099d25afca2e2
+/* خلفية متدرجة متحركة (Blackpink Gradient) */
 @keyframes bpGradient {
   0% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
@@ -61,60 +36,31 @@ body {
 }
 
 .bp-bg {
-<<<<<<< HEAD
-  background: linear-gradient(135deg, #000000, #1a1a1a, #ff4da62a, #000000);
-=======
-  background: linear-gradient(135deg, #000000, #1a1a1a, #ff4da6, #000000);
->>>>>>> 96e82ab49773b88e6a3cf4cd99f099d25afca2e2
+  background: linear-gradient(135deg, #000000, #1a0011, #ff4da68e, #000000);
   background-size: 300% 300%;
-  animation: bpGradient 10s ease infinite;
+  animation: bpGradient 8s ease infinite;
 }
 
-<<<<<<< HEAD
-/* Glow Effect */
-=======
-/* لمعة Blackpink */
->>>>>>> 96e82ab49773b88e6a3cf4cd99f099d25afca2e2
+/* وهج الحاوية والبطاقات */
 .bp-glow {
   box-shadow:
-    0 0 25px rgba(255, 77, 166, 0.7),
-    0 0 50px rgba(255, 77, 166, 0.4);
+    0 0 25px rgba(255, 77, 166, 0.699),
+    0 0 50px rgba(255, 77, 166, 0.3);
 }
 
-<<<<<<< HEAD
-/* Square Hover Glow */
-=======
-/* لمعة خفيفة للمربعات */
->>>>>>> 96e82ab49773b88e6a3cf4cd99f099d25afca2e2
+/* وهج المربعات عند التأشير */
 .bp-square {
-  transition: all 0.3s ease;
+  transition: all 0.25s ease-in-out;
 }
 
 .bp-square:hover {
   box-shadow:
-    0 0 20px rgba(255, 77, 166, 0.8),
-    0 0 40px rgba(255, 77, 166, 0.5);
+    0 0 20px rgba(255, 77, 166, 0.9),
+    0 0 40px rgba(255, 77, 166, 0.6);
   transform: scale(1.05);
 }
-<<<<<<< HEAD
 
-/* Confetti Style */
-=======
-@keyframes bpGradient {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
-.bp-bg {
-  background: linear-gradient(135deg, #000000, #1a1a1a, #ff4da6, #000000);
-  background-size: 300% 300%;
-  animation: bpGradient 10s ease infinite;
-}
-
-
-
->>>>>>> 96e82ab49773b88e6a3cf4cd99f099d25afca2e2
+/* تأثير احتفال الفوز (Confetti) */
 .confetti {
   position: fixed;
   top: 0;
@@ -123,63 +69,40 @@ body {
   height: 100%;
   pointer-events: none;
   overflow: hidden;
-<<<<<<< HEAD
   z-index: 9999;
-=======
-  z-index: 50;
->>>>>>> 96e82ab49773b88e6a3cf4cd99f099d25afca2e2
 }
 
 .confetti-piece {
   position: absolute;
   width: 10px;
-<<<<<<< HEAD
-  height: 10px;
-  opacity: 0.9;
-  animation: fall 1.5s linear forwards;
-=======
   height: 20px;
   background: #ff4da6;
-  opacity: 0.8;
+  opacity: 0.85;
   animation: fall 2s linear forwards;
->>>>>>> 96e82ab49773b88e6a3cf4cd99f099d25afca2e2
 }
 
 @keyframes fall {
   0% {
-<<<<<<< HEAD
     transform: translateY(-20px) rotate(0deg);
-=======
-    transform: translateY(-100vh) rotate(0deg);
->>>>>>> 96e82ab49773b88e6a3cf4cd99f099d25afca2e2
   }
   100% {
     transform: translateY(100vh) rotate(360deg);
   }
 }
-<<<<<<< HEAD
-=======
 
-
-
-
+/* نص الفائز المتحرك */
 .winner-text {
-  font-size: 0.5rem;
-  transform: scale(0.3);
-  opacity: 0;
-  animation: growText 0.6s ease forwards;
+  display: inline-block;
+  animation: growText 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
 }
 
 @keyframes growText {
   0% {
-    transform: scale(5);
+    transform: scale(0.5);
     opacity: 0;
   }
   100% {
-    transform: scale(12);
-    opacity: 2;
+    transform: scale(1);
+    opacity: 1;
   }
 }
-
-
->>>>>>> 96e82ab49773b88e6a3cf4cd99f099d25afca2e2

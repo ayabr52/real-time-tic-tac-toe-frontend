@@ -1,6 +1,5 @@
 "use client";
 
-<<<<<<< HEAD
 /**
  * @file GamePage Component
  * @module app/game/[roomId]/page
@@ -39,7 +38,7 @@ function launchConfetti(): void {
   }
 
   document.body.appendChild(container);
-  
+
   // Cleanup DOM element after animation completes
   setTimeout(() => container.remove(), 2000);
 }
@@ -55,7 +54,7 @@ function calculateWinner(sq: (string | null)[]): string | null {
   const lines = [
     [0, 1, 2], [3, 4, 5], [6, 7, 8], // Horizontal rows
     [0, 3, 6], [1, 4, 7], [2, 5, 8], // Vertical columns
-    [0, 4, 8], [2, 4, 6]             // Diagonals
+    [0, 4, 8], [2, 4, 6]              // Diagonals
   ];
 
   for (const [a, b, c] of lines) {
@@ -176,7 +175,7 @@ export default function GamePage() {
       if (res.ok) {
         setCurrentSymbol(currentSymbol === "X" ? "O" : "X");
       } else {
-        alert(data.error || "Invalid move");
+        alert(data.error || "حركة غير صالحة");
         // Rollback optimistic update on error
         nextSquares[i] = null;
         setSquares([...nextSquares]);
@@ -229,57 +228,51 @@ export default function GamePage() {
   };
 
   return (
-    <div className="relative min-h-screen w-full bp-bg flex items-center justify-center overflow-hidden">
-      <div className="relative z-10 flex flex-col items-center bp-glow p-6 rounded-xl bg-black/40 backdrop-blur-md border border-white/10 shadow-2xl">
-        <h2 className="text-gray-400 text-sm mb-1">Room: {roomId}</h2>
+    <div className="relative min-h-screen w-full bp-bg flex items-center justify-center overflow-hidden p-4">
+      <div className="relative z-10 flex flex-col items-center bp-glow p-6 sm:p-8 rounded-2xl bg-black/50 backdrop-blur-md border border-pink-500/20 max-w-md w-full">
+        {/* اسم الغرفة بحجم أكبر وافتراضي ممتاز */}
+        <h2 className="text-pink-300/80 text-base sm:text-lg tracking-wider mb-3 uppercase font-medium">
+          غرفة: <span className="font-extrabold text-pink-400 text-lg sm:text-xl">{roomId}</span>
+        </h2>
 
-        <div className="text-pink-400 text-3xl mb-4 font-bold tracking-wide">
+        {/* النص الخاص بالفائز والدور بحجم بارز جداً */}
+        <div className="text-pink-400 mb-6 font-bold tracking-wide min-h-[48px] flex items-center justify-center">
           {winner ? (
-            <div className="winner-text text-pink-400 font-bold animate-bounce">
-              Winner: {winner} 🎉
+            <div className="winner-text text-3xl sm:text-4xl text-pink-400 font-black drop-shadow-[0_0_12px_rgba(255,77,166,0.9)]">
+              🎉 الفائز: {winner}
             </div>
           ) : (
-            <div className="text-pink-400 text-3xl font-bold">
-              Turn: {currentSymbol}
+            <div className="text-2xl sm:text-3xl font-bold">
+              الدور: <span className="text-pink-300 font-black text-3xl sm:text-4xl">{currentSymbol}</span>
             </div>
           )}
         </div>
 
         {/* 3x3 Interactive Grid */}
-        <div className="grid grid-cols-3 gap-3">
+        <div className="grid grid-cols-3 gap-2.5 sm:gap-3 w-full aspect-square">
           {squares.map((sq, i) => (
             <Square key={i} value={sq} onClick={() => handleClick(i)} />
           ))}
         </div>
 
         {/* Action Controls */}
-        <div className="flex gap-4 items-center mt-6">
+        <div className="flex gap-3 items-center mt-6 w-full justify-center">
           <button
             onClick={handleReset}
-            title="Reset Game"
-            className="text-pink-400 text-3xl font-bold hover:text-pink-300 transition transform hover:rotate-180 duration-500 active:scale-90"
+            title="إعادة اللعبة"
+            className="px-4 py-2 bg-pink-500/10 hover:bg-pink-500/20 text-pink-300 border border-pink-500/30 rounded-xl text-lg font-bold transition active:scale-95 flex items-center gap-1"
           >
-            ↻
+            ↻ إعادة
           </button>
 
           <button
             onClick={handleLeaveAndDestroy}
-            className="px-4 py-2 bg-red-500/20 hover:bg-red-500/40 text-red-300 border border-red-500/30 rounded-lg text-sm transition active:scale-95"
+            className="px-4 py-2 bg-red-500/10 hover:bg-red-500/20 text-red-400 border border-red-500/30 rounded-xl text-lg font-bold transition active:scale-95"
           >
-            End Room ✕
+            إنهاء الغرفة ✕
           </button>
         </div>
       </div>
     </div>
   );
 }
-=======
-import { useParams } from "next/navigation";
-import Board from "@/components/Board";
-
-export default function GamePage() {
-  const { roomId } = useParams();
-
-  return <Board roomId={roomId} />;
-}
->>>>>>> 96e82ab49773b88e6a3cf4cd99f099d25afca2e2

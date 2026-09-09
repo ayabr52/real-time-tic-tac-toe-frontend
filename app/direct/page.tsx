@@ -1,5 +1,4 @@
 "use client";
-<<<<<<< HEAD
 
 import { useState, useEffect } from "react";
 import Square from "@/app/components/Square";
@@ -15,7 +14,7 @@ function launchConfetti() {
     const piece = document.createElement("div");
     piece.className = "confetti-piece";
     piece.style.left = Math.random() * 100 + "vw";
-    piece.style.backgroundColor = ["#ff4da6", "#ff80c8", "#ffffff"][
+    piece.style.backgroundColor = ["#ff4da6c5", "#ff80c89d", "#ffffffc9"][
       Math.floor(Math.random() * 3)
     ];
     piece.style.animationDelay = Math.random() * 0.5 + "s";
@@ -107,10 +106,4 @@ export default function DirectGame() {
       </div>
     </div>
   );
-=======
-import Board from "@/components/Board";
-
-export default function DirectGame() {
-  return <Board />;
->>>>>>> 96e82ab49773b88e6a3cf4cd99f099d25afca2e2
 }
